@@ -1,0 +1,13 @@
+
+security:
+
+	users:
+		username:
+		    password: password
+		    roles: [admin]
+
+	roles:
+		guest:
+		registered: [guest]
+		user: [registered]
+		admin: [user]

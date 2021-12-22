@@ -1,0 +1,14 @@
+
+{block content}
+
+    <div class="btn-group" style="padding: 10px">
+        <a class="btn btn-dark" n:href="Homepage:">Back</a>
+        <a class="btn btn-success" n:href="Notes:new">New note</a>
+    </div>
+
+    <br><br>
+    <ul>
+        <li>note 1 <a n:href="Notes:remove, id: 123" class="btn btn-warning">X</a></li>
+        <li>note 2</li>
+    </ul>
+{/block}

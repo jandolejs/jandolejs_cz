@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="cs">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="no-index">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>{ifset title}JD - {include title|stripHtml}{else}Jan Dolejš{/ifset}</title>
+
+    <style>
+        body{ font-family: Arial, serif; color:#555; }
+        h1{ margin:150px 0 40px 0; }
+        h1,p{ text-align:center; }
+        a{ color:#333; }
+        a:focus,a:hover,a:active{ color:#000; text-decoration:none; }
+    </style>
+</head>
+<body>
+
+{if $user->isLoggedIn()}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Jan Dolejš</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" n:href="Notes:">Notes</a></li>
+                <li class="nav-item"><a class="nav-link" href="http://ftp.jandolejs.cz">FTP</a></li>
+            </ul>
+            <a class="btn btn-outline-success my-2 my-sm-0" href="/logout">Log out</a>
+        </div>
+    </nav>
+{/if}
+
+<div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+
+{block content}{/block}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+</body>
+</html>
