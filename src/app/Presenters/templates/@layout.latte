@@ -9,16 +9,10 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
 
     <title>{ifset title}JD - {include title|stripHtml}{else}Jan Dolejš{/ifset}</title>
 
-    <style>
-        body{ font-family: Arial, serif; color:#555; }
-        h1{ margin:150px 0 40px 0; }
-        h1,p{ text-align:center; }
-        a{ color:#333; }
-        a:focus,a:hover,a:active{ color:#000; text-decoration:none; }
-    </style>
 </head>
 <body>
 
@@ -36,6 +30,7 @@
                 <li class="nav-item"><a class="nav-link" href="https://key.jandolejs.cz">Key</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://release.jandolejs.cz">Release</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://car.jandolejs.cz">Car</a></li>
+                <li class="nav-item"><a class="nav-link" href="/me">Photo</a></li>
             </ul>
             <a class="btn btn-outline-success my-2 my-sm-0" href="/logout">Log out</a>
         </div>

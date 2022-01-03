@@ -1,0 +1,28 @@
+
+body {
+    font-family: Arial, serif;
+    color:#555;
+}
+
+h1 {
+    margin: 150px 0 40px 0;
+}
+
+h1, p {
+    text-align: center;
+}
+
+a {
+    color: #333;
+}
+
+a:focus, a:hover, a:active {
+    color:#000;
+    text-decoration:none;
+}
+
+.sep::before {
+    content: "|";
+    color: gray;
+    padding: 4px;
+}
