@@ -1,13 +1,5 @@
 
-security:
-
-	users:
-		username:
-		    password: password
-		    roles: [admin]
-
-	roles:
-		guest:
-		registered: [guest]
-		user: [registered]
-		admin: [user]
+database:
+    dsn: 'mysql:host=mariadb;dbname=here_database_name'
+    user: here_database_user
+    password: here_database_password
