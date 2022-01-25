@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
+use App\Presenter;
 use JetBrains\PhpStorm\NoReturn;
 use Nette;
 use Nette\Application\UI\Form;
 
-final class NotesPresenter extends Nette\Application\UI\Presenter
+final class NotesPresenter extends Presenter
 {
     public function createComponentNewNote(): Form
     {
@@ -38,7 +39,6 @@ final class NotesPresenter extends Nette\Application\UI\Presenter
 
     #[NoReturn] public function actionRemove(): void
     {
-        bdump($this->getParameters()['id']);
         $this->redirect("Notes:");
     }
 }

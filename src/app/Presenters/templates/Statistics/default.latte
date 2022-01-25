@@ -1,0 +1,44 @@
+{templateType App\Presenters\StatisticsPresenter}
+
+{block title}
+    Statistics
+{/block}
+
+{block content}
+
+    {default $statistics = array()}
+
+    <h1>Statistics</h1>
+
+    <div class="box">
+        <h2>All</h2>
+        <div class="box"><h3 onclick="$(this).next().toggle(400);">All in this month</h3>
+            {include statistics_table, statistics: $statistics['all']['this']}
+        </div>
+        <div class="box"><h3 onclick="$(this).next().toggle(400);">All in last month</h3>
+            {include statistics_table, statistics: $statistics['all']['last']}
+        </div>
+    </div>
+{/block}
+
+{block statistics_table}
+    {default $statistics = array()}
+    <table class="table" style="display: none">
+
+        {include table_head, head:['#', 'type', 'Action', 'value', 'date', ]}
+
+        <tbody id="tasks_all">
+        {foreach $statistics as $_row}
+            {var Nette\Database\Row $row = $_row}
+            <tr>
+                <td>{$row->offsetGet('id')}</td>
+                <td>{$row->offsetGet('type')}</td>
+                <td>{$row->offsetGet('action')}</td>
+                <td>{$row->offsetGet('value')}</td>
+                <td>{$row->offsetGet('date')}</td>
+            </tr>
+        {/foreach}
+        </tbody>
+
+    </table>
+{/block}

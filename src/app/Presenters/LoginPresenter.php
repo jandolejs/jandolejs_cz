@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
+use App\Presenter;
 use JetBrains\PhpStorm\NoReturn;
 use Nette;
 use Nette\Application\UI\Form;
 
 
-final class LoginPresenter extends Nette\Application\UI\Presenter
+final class LoginPresenter extends Presenter
 {
     public function createComponentLoginForm(): Form
     {

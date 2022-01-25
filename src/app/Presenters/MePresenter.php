@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
+use App\Presenter;
 use Nette;
 
 
-final class MePresenter extends Nette\Application\UI\Presenter
+final class MePresenter extends Presenter
 {
 }

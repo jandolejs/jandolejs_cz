@@ -46,3 +46,12 @@
 
 </body>
 </html>
+
+
+{define table_head}
+    <thead>
+    <tr>
+        <th n:foreach="$head as $item" scope="col">{$item|firstUpper}</th>
+    </tr>
+    </thead>
+{/define}

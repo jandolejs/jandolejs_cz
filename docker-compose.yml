@@ -21,6 +21,32 @@ services:
         volumes:
             - ./src:/app
 
+    mariadb:
+        image: wodby/mariadb:$MARIADB_TAG
+        container_name: "${PROJECT_NAME}_mariadb"
+        stop_grace_period: 30s
+        environment:
+            MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+            MYSQL_DATABASE: $DB_NAME
+            MYSQL_USER: $DB_USER
+            MYSQL_PASSWORD: $DB_PASSWORD
+        volumes:
+            #- ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
+            - ./mysql:/var/lib/mysql # I want to manage volumes manually.
+
+    adminer:
+        image: adminer
+        container_name: "${PROJECT_NAME}_adminer"
+        environment:
+            ADMINER_DEFAULT_SERVER: $DB_HOST
+        labels:
+            # Enable traefik for this container
+            - "traefik.enable=true"
+
+            # Route HTTP Web
+            - "traefik.http.routers.${PROJECT_NAME}_adminer.rule=Host(`adminer.${PROJECT_BASE_URL}`, `adminer.${PROJECT_LOCALHOST}`)"
+            - "traefik.http.routers.${PROJECT_NAME}_adminer.entrypoints=web"
+
     nginx:
         image: wodby/nginx:$NGINX_TAG
         container_name: "${PROJECT_NAME}_nginx"

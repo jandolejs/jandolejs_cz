@@ -1,4 +1,13 @@
+
 parameters:
+    configuration:
+
+        statistics:
+            table: statistics
+
+        users:
+            table: users
+
 
 http:
     proxy: 172.0.0.0/8
@@ -16,9 +25,19 @@ session:
 
 di:
     export:
-        parameters: no
-        tags: no
+        parameters: yes
+        tags: yes
 
 
 services:
     - App\Router\RouterFactory::createRouter
+
+    Configuration:
+        factory: App\Configuration
+        setup:
+            - App\Configuration::$config = %configuration%
+
+    Authenticator: App\MyAuthenticator
+    Authorizer: App\MyAuthorizer
+
+    Statistics: App\Model\Statistics(@Nette\Database\Explorer, @Nette\Security\User)
