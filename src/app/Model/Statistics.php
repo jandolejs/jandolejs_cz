@@ -37,19 +37,13 @@ class Statistics
         $this->create('url', $type, $url);
     }
 
-    #[ArrayShape(['all' => "array"])]
+    #[ArrayShape(['this' => "array", 'last' => 'array'])]
     public function getAllStatisticsTogether(): array
     {
-        // fetch results
-        $result =  [
-            'all' => [
-                'this' => $this->getStatistic(null, null, true, 0),
-                'last' => $this->getStatistic(null, null, true, -1),
-            ],
+        return [
+            'this' => $this->getStatistic(0),
+            'last' => $this->getStatistic(-1),
         ];
-
-        // return results
-        return $result;
     }
 
     private function getTable(): Selection
@@ -57,27 +51,18 @@ class Statistics
         return clone $this->database->table(Configuration::get('statistics/table'));
     }
 
-    private function getStatistic(string $type = null, string $action = null, bool $group = false, ?int $month = null, ?int $day = null): array
+    private function getStatistic(?int $month = null): array
     {
         $where = array();
-
-        if (isset($type)) $where[] = ['type' => $type];
-        if (isset($type)) $where[] = ['action' => $action];
 
         if ($month !== null) {
             $where[] = [
                 'date LIKE' => date('Y-m', strtotime("first day of $month month")) . '%',
             ];
         }
-        if ($day !== null) {
-            $where[] = [
-                'date LIKE' => date('Y-m-d', strtotime("today $day day")) . "%",
-            ];
-        }
 
-        $fetched = $this->getTable()->order('date DESC')->where($where);
-
-        if ($group) $fetched = $fetched->group("value");
+        $fetched = $this->getTable()->where($where)->order('date DESC');
+        $fetched = $fetched->group("value");
 
         return $fetched->fetchAll() ?? [];
     }
