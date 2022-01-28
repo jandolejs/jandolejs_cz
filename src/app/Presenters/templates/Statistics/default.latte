@@ -10,26 +10,26 @@
 
     <h1>Statistics</h1>
 
-    <div class="box">
-        <h2>All</h2>
-        <div class="box"><h3 onclick="$(this).next().toggle(400);">All in this month</h3>
-            {include statistics_table, statistics: $statistics['all']['this']}
-        </div>
-        <div class="box"><h3 onclick="$(this).next().toggle(400);">All in last month</h3>
-            {include statistics_table, statistics: $statistics['all']['last']}
-        </div>
+    <div class="box"><h3 onclick="$(this).next().toggle(400);">This month</h3>
+        {include statistics_table, statistics: $statistics['this'], display: true}
+    </div>
+
+    <div class="box"><h3 onclick="$(this).next().toggle(400);">Last month</h3>
+        {include statistics_table, statistics: $statistics['last'], display: false}
     </div>
 {/block}
 
 {block statistics_table}
     {default $statistics = array()}
-    <table class="table" style="display: none">
+    {default $display = true}
+    <table class="table" style="display: {$display ? '' : 'none'}">
 
         {include table_head, head:['#', 'type', 'Action', 'value', 'date', ]}
 
         <tbody id="tasks_all">
         {foreach $statistics as $_row}
             {var Nette\Database\Row $row = $_row}
+            {dump $row}
             <tr>
                 <td>{$row->offsetGet('id')}</td>
                 <td>{$row->offsetGet('type')}</td>
