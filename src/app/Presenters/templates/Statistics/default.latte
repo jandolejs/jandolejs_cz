@@ -29,7 +29,6 @@
         <tbody id="tasks_all">
         {foreach $statistics as $_row}
             {var Nette\Database\Row $row = $_row}
-            {dump $row}
             <tr>
                 <td>{$row->offsetGet('id')}</td>
                 <td>{$row->offsetGet('type')}</td>
