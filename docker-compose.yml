@@ -21,7 +21,7 @@ services:
         volumes:
             - ./src:/app
 
-    mariadb:
+    mariadb_jandolejs:
         image: wodby/mariadb:$MARIADB_TAG
         container_name: "${PROJECT_NAME}_mariadb"
         stop_grace_period: 30s
