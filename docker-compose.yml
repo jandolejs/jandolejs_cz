@@ -13,6 +13,9 @@ services:
             - ./src/:/var/www/html
         depends_on:
             - composer
+        networks:
+            - database
+            - web
 
     composer:
         container_name: "${PROJECT_NAME}_composer"
@@ -20,19 +23,6 @@ services:
         command: install
         volumes:
             - ./src:/app
-
-    mariadb_jandolejs:
-        image: wodby/mariadb:$MARIADB_TAG
-        container_name: "${PROJECT_NAME}_mariadb"
-        stop_grace_period: 30s
-        environment:
-            MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
-            MYSQL_DATABASE: $DB_NAME
-            MYSQL_USER: $DB_USER
-            MYSQL_PASSWORD: $DB_PASSWORD
-        volumes:
-            #- ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
-            - ./mysql:/var/lib/mysql # I want to manage volumes manually.
 
     nginx:
         image: wodby/nginx:$NGINX_TAG
@@ -46,6 +36,8 @@ services:
             NGINX_SERVER_ROOT: /var/www/html/www
         volumes:
             - ./src/:/var/www/html
+        networks:
+            - web
         labels:
             # Enable traefik for this container
             - "traefik.enable=true"
@@ -72,3 +64,9 @@ services:
             # TLS Certificates
             - "traefik.http.routers.${PROJECT_NAME}_https.tls=true"
             - "traefik.http.routers.${PROJECT_NAME}_https.tls.certresolver=myresolver"
+
+networks:
+    database:
+        name: database
+    web:
+        name: jandolejs_cz
