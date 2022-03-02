@@ -22,12 +22,14 @@ h1, h2, h3, p, div {
 
 a {
     color: #333;
+    text-decoration-color: darkgoldenrod;
+    text-decoration-thickness: from-font;
 }
 
 .list a:before {
     content: "|";
     color: gray;
-    padding: 4px;
+    padding: 10px;
 }
 .list a:first-child {
     font-weight: bold;
@@ -38,7 +40,7 @@ a {
 
 a:focus, a:hover, a:active {
     color:#000;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .sep::before {
