@@ -16,12 +16,24 @@ h3 {
     margin: 25px 0 0 0;
 }
 
-h1, h2, h3, p {
+h1, h2, h3, p, div {
     text-align: center;
 }
 
 a {
     color: #333;
+}
+
+.list a:before {
+    content: "|";
+    color: gray;
+    padding: 4px;
+}
+.list a:first-child {
+    font-weight: bold;
+}
+.list a:first-child:before {
+    content: ""
 }
 
 a:focus, a:hover, a:active {
