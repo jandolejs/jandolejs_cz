@@ -55,7 +55,7 @@ services:
             - "traefik.http.middlewares.${PROJECT_NAME}_https_redirect.redirectscheme.scheme=https"
             - "traefik.http.middlewares.${PROJECT_NAME}_https_redirect.redirectscheme.permanent=true"
 
-            # Redirect www to normal web
+            # Redirect normal web to www
             - "traefik.http.routers.${PROJECT_NAME}_https.middlewares=${PROJECT_NAME}_www_redirect"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.regex=^(https?)://${PROJECT_BASE_URL}/(.*)$$"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.replacement=$${1}://www.${PROJECT_BASE_URL}/$${2}"
@@ -68,5 +68,7 @@ services:
 networks:
     database:
         name: database
+        external: true
     web:
         name: jandolejs_cz
+        external: true
