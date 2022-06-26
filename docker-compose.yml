@@ -82,6 +82,6 @@ services:
 
 networks:
     database:
-        name: database
+        name: database_jandolejs
     web:
         name: jandolejs_cz
