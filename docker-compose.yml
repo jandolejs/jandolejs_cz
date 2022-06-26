@@ -2,35 +2,15 @@ version: "3.9"
 
 services:
 
-    php:
-        image: wodby/php:8
-        container_name: "${PROJECT_NAME}_php"
-        restart: always
-        environment:
-            PHP_FPM_USER: wodby
-            PHP_FPM_GROUP: wodby
-        volumes:
-            - ./src/:/var/www/html
-        depends_on:
-            - composer
-        networks:
-            - database
-            - web
-
-    composer:
-        container_name: "${PROJECT_NAME}_composer"
-        image: composer
-        command: install
-        volumes:
-            - ./src:/app
-
     nginx:
-        image: wodby/nginx:latest
+        image: wodby/nginx
         container_name: "${PROJECT_NAME}_nginx"
         restart: always
         depends_on:
             - php
         environment:
+            NGINX_STATIC_OPEN_FILE_CACHE: "off"
+            NGINX_ERROR_LOG_LEVEL: debug
             NGINX_BACKEND_HOST: php
             NGINX_VHOST_PRESET: php
             NGINX_SERVER_ROOT: /var/www/html/www
@@ -39,7 +19,7 @@ services:
         networks:
             - web
         labels:
-            # Enable traefik for this container
+            # Enable traefik
             - "traefik.enable=true"
 
             # Route HTTP Web
@@ -64,6 +44,42 @@ services:
             # TLS Certificates
             - "traefik.http.routers.${PROJECT_NAME}_https.tls=true"
             - "traefik.http.routers.${PROJECT_NAME}_https.tls.certresolver=myresolver"
+
+    php:
+        image: wodby/php:8
+        container_name: "${PROJECT_NAME}_php"
+        restart: always
+        environment:
+            PHP_FPM_CLEAR_ENV: 'no'
+            PHP_FPM_USER: wodby
+            PHP_FPM_GROUP: wodby
+        volumes:
+            - ./src:/var/www/html
+        depends_on:
+            - composer
+        networks:
+            - database
+            - web
+
+    composer:
+        container_name: "${PROJECT_NAME}_composer"
+        image: composer
+        command: install
+        volumes:
+            - ./src:/app
+
+    database:
+        image: wodby/mariadb
+        container_name: "${PROJECT_NAME}_mariadb"
+        environment:
+            MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+        restart: always
+        volumes:
+            - ./mysql:/var/lib/mysql
+            - ./src/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+            - database
+            - adminer
 
 networks:
     database:
