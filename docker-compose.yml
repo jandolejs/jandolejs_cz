@@ -68,7 +68,5 @@ services:
 networks:
     database:
         name: database
-        external: true
     web:
         name: jandolejs_cz
-        external: true
