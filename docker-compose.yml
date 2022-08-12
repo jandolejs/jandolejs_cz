@@ -74,13 +74,17 @@ services:
         container_name: "${PROJECT_NAME}_adminer"
         environment:
             ADMINER_DEFAULT_SERVER: database
-        ports:
-            - "8086:8080"
         networks:
             - database
+            - web
         restart: always
         depends_on:
             - database
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.${PROJECT_NAME}_adminer.middlewares=personal_auth@file"
+            - "traefik.http.routers.${PROJECT_NAME}_adminer.entrypoints=web"
+            - "traefik.http.routers.${PROJECT_NAME}_adminer.rule=Host(`adminer.${PROJECT_BASE_URL}`)"
 
     database:
         image: wodby/mariadb
