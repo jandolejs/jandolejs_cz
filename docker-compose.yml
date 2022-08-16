@@ -59,8 +59,8 @@ services:
             - composer
             - database
         networks:
-            - database
             - web
+            - database
 
     composer:
         container_name: "${PROJECT_NAME}_composer"
@@ -75,8 +75,8 @@ services:
         environment:
             ADMINER_DEFAULT_SERVER: database
         networks:
-            - database
             - web
+            - database
         restart: always
         depends_on:
             - database
@@ -102,4 +102,4 @@ networks:
     database:
         name: database_jandolejs
     web:
-        name: jandolejs_cz
+        name: www
