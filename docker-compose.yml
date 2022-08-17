@@ -70,7 +70,7 @@ services:
             - ./src:/app
 
     adminer:
-        image: adminer
+        image: dockette/adminer
         container_name: "${PROJECT_NAME}_adminer"
         environment:
             ADMINER_DEFAULT_SERVER: database
@@ -81,10 +81,19 @@ services:
         depends_on:
             - database
         labels:
+            # Enable Traefik
             - "traefik.enable=true"
+            - "traefik.docker.network=www_jandolejs"
+
+            # Route http Adminer requests
             - "traefik.http.routers.${PROJECT_NAME}_adminer.middlewares=personal_auth@file"
             - "traefik.http.routers.${PROJECT_NAME}_adminer.entrypoints=web"
             - "traefik.http.routers.${PROJECT_NAME}_adminer.rule=Host(`adminer.${PROJECT_BASE_URL}`)"
+
+            # Route https Adminer requests
+            - "traefik.http.routers.${PROJECT_NAME}_adminers.rule=Host(`adminer.${PROJECT_BASE_URL}`)"
+            - "traefik.http.routers.${PROJECT_NAME}_adminers.entrypoints=websecure"
+            - "traefik.http.routers.${PROJECT_NAME}_adminers.tls=true"
 
     database:
         image: wodby/mariadb
@@ -99,7 +108,7 @@ services:
             - database
 
 networks:
+    web:
+        name: www_jandolejs
     database:
         name: database_jandolejs
-    web:
-        name: www
