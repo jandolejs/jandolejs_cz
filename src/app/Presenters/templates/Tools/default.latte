@@ -1,0 +1,21 @@
+{templateType App\Presenters\StatisticsPresenter}
+
+{block title}
+    Tools
+{/block}
+
+{block content}
+
+    <h1 style="margin-top: 10px">Tools</h1>
+
+    <div class="box"><h3 style="margin: 5px 0 10px 0" onclick="$(this).next().toggle(400);">Flush cache</h3>
+        {include flush_cache}
+    </div>
+{/block}
+
+{block flush_cache}
+    <div>
+        <a href="{link "Tools:flushCache", 'all'}" onclick="return confirm('Sure?')"><button class="btn btn-danger">All</button></a>
+        <a href="{link "Tools:flushCache", 'latte'}"><button class="btn btn-warning">Latte</button></a>
+    </div>
+{/block}
