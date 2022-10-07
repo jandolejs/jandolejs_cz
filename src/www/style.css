@@ -4,19 +4,14 @@ body {
     color: #555;
 }
 
-.h {
-    margin: 150px 0 0 0;
-}
+.h  {padding: 150px 0 0 0}
+.hh {padding: 50px 0 0 0}
+h3  {padding: 25px 0 0 0}
+h4  {padding: 15px 0 0 0}
+h5  {padding: 10px 0 0 0}
+h6  {padding: 10px 0 0 0}
 
-.hh {
-    margin: 50px 0 0 0;
-}
-
-h3 {
-    margin: 25px 0 0 0;
-}
-
-h1, h2, h3, p, div {
+h1, h2, h3, h4, h5, h6, p, div {
     text-align: center;
 }
 
@@ -56,5 +51,5 @@ a:focus, a:hover, a:active {
 }
 
 .box {
-    border: 1px solid black; border-radius: 7px; max-width: 95%;margin: 20px auto; padding: 10px;
+    border: 1px solid black; border-radius: 7px; max-width: 95%; margin: 20px auto; padding: 10px;
 }
