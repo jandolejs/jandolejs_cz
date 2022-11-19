@@ -1,5 +1,5 @@
 {templateType App\Presenters\NotePresenter}
-{varType App\Model\Note $note}
+{varType Nette\Database\Table\ActiveRow $note}
 
 {block title}
     Notes
@@ -22,6 +22,6 @@
 
 {block detail}
     <div>
-        {$note->getContent()}
+        {$note->content}
     </div>
 {/block}

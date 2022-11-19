@@ -22,14 +22,10 @@
     <div>
         <ul>
             {foreach $notes as $note}
-                {dump $note}
-                <li>
-                    <h5>
-                        <a n:href="Note:detail, id: $note->hash ?? $note->id">
-                            {$note->heading|firstUpper}
-                        </a>
-                    </h5>
-                </li>
+                <li><h5>
+                    <a n:href="Note:detail, id: $note->hash ?? $note->id"
+                    >{$note->heading|firstUpper}</a>
+                </h5></li>
             {else}
                 <li>No notes</li>
             {/foreach}

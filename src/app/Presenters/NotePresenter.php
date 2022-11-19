@@ -34,8 +34,9 @@ final class NotePresenter extends Presenter
         $note = $this->noteFactory->loadByHash($hash);
         if (!$note) {
             $note = $this->noteFactory->loadById($hash);
-            if ($note && $note->getHash()) {
-                $this->flashMessage('This note is not accessible by ID. Use hash!', 'danger');
+            // nacteni pres id neni povoleno pokud neni public
+            if ($note && !$note->public) {
+                $this->flashMessage('Note is not accessible by ID. Use hash!', 'danger');
                 $this->redirect("Notes:default");
             }
         }
@@ -43,7 +44,7 @@ final class NotePresenter extends Presenter
         if ($note) {
             $this->template->note = $note;
         } else {
-            $this->flashMessage("Note '$hash' was not found", 'danger');
+            $this->flashMessage("Note '" . htmlspecialchars($hash) . "' was not found", 'danger');
             $this->redirect("Notes:default");
         }
     }
