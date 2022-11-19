@@ -39,4 +39,9 @@ services:
     Authenticator: App\MyAuthenticator
     Authorizer: App\MyAuthorizer
 
+    NotesFactory:
+        factory: App\Model\Notes\Factory(@Nette\Database\Explorer)
+    NoteFactory:
+        factory: App\Model\Note\Factory(@Nette\Database\Explorer)
+
     Statistics: App\Model\Statistics(@Nette\Database\Explorer, @Nette\Security\User)

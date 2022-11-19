@@ -1,0 +1,33 @@
+{templateType App\Presenters\NotesPresenter}
+{default $notes = array()}
+
+{block title}
+    Notes
+{/block}
+
+{block content}
+
+    <style>
+        .box {
+            text-align: left;
+        }
+    </style>
+
+    <div class="box"><h3 style="margin: 5px 0 10px 0" onclick="$(this).next().toggle(400);">List of notes</h3>
+        {include list}
+    </div>
+{/block}
+
+{block list}
+    <div>
+        <ul>
+            {foreach $notes as $note}
+                {varType App\Model\Note $note}
+                {var $id = $note->getId()}
+                <li><h5><a n:href="Note:detail, id: $note->getHash()">{$note->getHeading()}</a></h5></li>
+            {else}
+                <li>No notes</li>
+            {/foreach}
+        </ul>
+    </div>
+{/block}
