@@ -29,6 +29,7 @@ final class NotesPresenter extends Presenter
         $notes = $this->notesFactory->loadNotes(
             $this->getUser(), $id, $id
         );
+        bdump($notes);
 
         $this->getTemplate()->notes = $notes;
     }

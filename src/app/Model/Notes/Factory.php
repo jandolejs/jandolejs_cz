@@ -24,42 +24,26 @@ class Factory extends \App\DatabaseObject
      */
     public function loadNotes(
         ?User $user = null,
-              $ids = null,
-              $hashes = null,
+              $ids = [],
+              $hashes = [],
     ): array
     {
-        $result = array();
-
+        $userId = 0;
         if ($user && $user->getId()) {
-            $result += $this->getByUser($user);
+            $userId = $user->getId();
         }
 
-        if ($ids && !is_array($ids)) {
-            $ids = array($ids);
-        }
-        if ($ids) {
-            foreach ($ids as $id) {
-                $result += $this->getById($id);
-            }
-        }
+        $select = $this->getTable()
+            ->where('visible = 1')
+            ->whereOr([
+                'user_id' => [$userId],
+                'id' => $ids ?? '%never%',
+                'hash' => $hashes ?? '%never%',
+                'public' => 1,
+            ])
+        ;
 
-        if ($hashes && !is_array($hashes)) {
-            $hashes = array($hashes);
-        }
-        if ($hashes) {
-            foreach ($hashes as $hash) {
-                $result += $this->getByHash($hash);
-            }
-        }
-
-        $result = array_unique($result);
-
-        $notes = array();
-        foreach ($result as $id) {
-            $notes[$id] = $this->load($id);
-        }
-
-        return $notes;
+        return $select->fetchAll() ?? [];
     }
 
     public function load(int $id): Note
@@ -113,14 +97,32 @@ class Factory extends \App\DatabaseObject
         return $ids;
     }
 
+    public function getPublic(): array
+    {
+        $ids = array();
+
+        $data = $this->getTable()
+            ->where('public = ?', 1)
+            ->select('id')
+            ->fetchAll();
+
+        if ($data) {
+            foreach ($data as $row) {
+                $ids[] = $row->id;
+            }
+        }
+
+        return $ids;
+    }
+
     public function getById(int $id): array
     {
         $ids = array();
 
-        $this->getTable()
+        $data = $this->getTable()
             ->where('id = ?', $id)
             ->select('id')
-            ->fetchAll();
+            ->fetch();
 
         return $ids;
     }
