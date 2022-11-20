@@ -1,5 +1,6 @@
 {templateType App\Presenters\NotesPresenter}
 {default $notes = array()}
+{varType Nette\Application\Request $request}
 
 {block title}
     Notes
@@ -30,18 +31,18 @@
 
 {block list}
     <div class="box">
-        <div>
-        </div>
-        <ul>
-            {foreach $notes as $note}
-                <li><h5>
-                    <a n:href="Note:detail, id: $note->hash ?? $note->id"
-                    >{$note->heading|firstUpper}</a>
-                </h5></li>
-            {else}
-                <li>No notes</li>
-            {/foreach}
-        </ul>
+        <table class="table">
+            {include tableHead, head: ['heading', 'actions']}
+            <tbody>
+                {foreach $notes as $note}
+                    <tr>
+                        <td><a n:href="Note:detail, id: $note->hash"
+                            >{$note->heading|firstUpper}</a></td>
+                        <td><a n:href="Notes:delete, id: $note->hash"><span class="color: red">&times;</span></a></td>
+                    </tr>
+                {/foreach}
+            </tbody>
+        </table>
     </div>
 {/block}
 
@@ -53,22 +54,23 @@
                     <h5 class="modal-title" id="exampleModalLabel">New note</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                {if $request->getParameter('modalError')}<div n:class="alert, 'alert-danger'">{$request->getParameter('modalError')}</div>{/if}
                 <form action="new">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <input name="header" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Heading">
+                            <input name="header" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Heading" value="{$request->getParameter('heading')}">
                         </div>
                         <div class="mb-3">
-                            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" placeholder="Content" rows="3"></textarea>
+                            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" placeholder="Content" rows="3">{$request->getParameter('content')}</textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="mb-3">
-                            <input name="hash" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Hash">
+                            <input name="hash" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Hash" value="{$request->getParameter('hash')}">
                         </div>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                         <div class="form-check">
-                            <input name="public" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input name="public" class="form-check-input" type="checkbox" id="flexCheckDefault" {if $request->getParameter('public')}checked{/if}>
                             <label class="form-check-label" for="flexCheckDefault">
                                 Public
                             </label>
@@ -78,4 +80,9 @@
             </div>
         </div>
     </div>
+    {if $request->getParameter('modal')}<script type="text/javascript">
+        $(window).on('load', function() {
+            $('#newnotemodal     ').modal('show');
+        });
+    </script>{/if}
 {/block}

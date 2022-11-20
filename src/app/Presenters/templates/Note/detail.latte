@@ -14,7 +14,7 @@
     </style>
 
     {if $note}
-        <div class="box"><h3 style="margin: 5px 0 10px 0" onclick="$(this).next().toggle(400);">Note</h3>
+        <div class="box"><h3 style="margin: 5px 0 10px 0" onclick="$(this).next().toggle(400);">{$note->heading??'Note'|firstUpper}</h3>
             {include detail}
         </div>
     {/if}
