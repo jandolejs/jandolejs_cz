@@ -23,6 +23,20 @@ final class NotesPresenter extends Presenter
         $this->redirect('Notes:default');
     }
 
+    public function actionNew() {
+        $data = [
+            'heading' => $this->getParameter('header'),
+            'content' => $this->getParameter('content'),
+            'hash' => $this->getParameter('hash') ? $this->getParameter('hash') : substr(md5(time().''), 0, 5),
+            'public' => $this->getParameter('public') ? 1:0,
+            'user_id' => $this->getUser()->getId(),
+        ];
+
+        $note = $this->notesFactory->getTable()->insert($data);
+        $hash = $note->hash ?? $note->id;
+        $this->redirect('Note:detail', ['id' => $hash]);
+    }
+
     public function actionDefault() {
         $id = $this->getRequest()->getParameter('id');
 

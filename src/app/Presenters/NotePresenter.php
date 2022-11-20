@@ -27,7 +27,7 @@ final class NotePresenter extends Presenter
         $hash = $this->getParameter('id');
 
         if (empty($hash)) {
-            $this->flashMessage("Hash of note is missing (/note/hash/a1b2c3)", 'danger');
+            $this->flashMessage("ID of note is missing (/note/id/a1b2c3)", 'danger');
             $this->redirect('Notes:default');
         }
 
