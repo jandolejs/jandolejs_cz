@@ -96,6 +96,7 @@ services:
             - "traefik.http.routers.${PROJECT_NAME}_adminers.tls=true"
 
     database:
+        platform: linux/x86_64
         image: wodby/mariadb
         container_name: "${PROJECT_NAME}_mariadb"
         environment:
