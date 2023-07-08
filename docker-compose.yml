@@ -111,5 +111,6 @@ services:
 networks:
     web:
         name: www_jandolejs
+        external: true
     database:
         name: database_jandolejs
