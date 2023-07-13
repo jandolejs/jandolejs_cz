@@ -1,5 +1,5 @@
 
 database:
-    dsn: 'mysql:host=database;dbname=jandolejs'
-    user: root
-    password: root
+    dsn: 'mysql:host=jandolejs.cz;dbname=jandolejs'
+    user: jandolejs
+    password: rybnice
