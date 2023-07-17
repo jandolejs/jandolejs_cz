@@ -22,28 +22,18 @@ services:
             # Enable traefik
             - "traefik.enable=true"
 
-            # Route HTTP Web
+            # TLS Certificates
+            - "traefik.http.routers.${PROJECT_NAME}_http.tls=true"
+
+            # Route Web
             - "traefik.http.routers.${PROJECT_NAME}_http.rule=Host(`www.${PROJECT_BASE_URL}`) || Host(`${PROJECT_BASE_URL}`)"
-            - "traefik.http.routers.${PROJECT_NAME}_http.entrypoints=web"
-
-            # Route HTTPS Web
-            - "traefik.http.routers.${PROJECT_NAME}_https.rule=Host(`www.${PROJECT_BASE_URL}`) || Host(`${PROJECT_BASE_URL}`)"
-            - "traefik.http.routers.${PROJECT_NAME}_https.entrypoints=websecure"
-
-            # Redirect HTTP to HTTPS
-            - "traefik.http.routers.${PROJECT_NAME}_http.middlewares=${PROJECT_NAME}_https_redirect"
-            - "traefik.http.middlewares.${PROJECT_NAME}_https_redirect.redirectscheme.scheme=https"
-            - "traefik.http.middlewares.${PROJECT_NAME}_https_redirect.redirectscheme.permanent=true"
+            - "traefik.http.routers.${PROJECT_NAME}_http.entrypoints=web,websecure"
 
             # Redirect normal web to www
-            - "traefik.http.routers.${PROJECT_NAME}_https.middlewares=${PROJECT_NAME}_www_redirect"
+            - "traefik.http.routers.${PROJECT_NAME}_http.middlewares=${PROJECT_NAME}_www_redirect"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.regex=^(https?)://${PROJECT_BASE_URL}/(.*)$$"
-            - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.replacement=$${1}://www.${PROJECT_BASE_URL}/$${2}"
+            - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.replacement=https://www.${PROJECT_BASE_URL}/$${2}"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.permanent=true"
-
-            # TLS Certificates
-            - "traefik.http.routers.${PROJECT_NAME}_https.tls=true"
-            - "traefik.http.routers.${PROJECT_NAME}_https.tls.certresolver=myresolver"
 
     php:
         image: wodby/php:8
