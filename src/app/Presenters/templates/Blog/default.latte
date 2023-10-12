@@ -1,6 +1,6 @@
 
 {block content}
-    <h1 style="padding-left: 100px; padding-top: 50px;" class="center">Blog</h1>
+    <h1 style="padding-top: 50px;" class="center">Blog</h1>
     <br>
     <div n:foreach="$posts as $post" class="post center" style="max-width: 830px; text-align: justify; padding: 10px">
         <h2><a n:href="Blog:post $post->id">{$post->title}</a></h2>
