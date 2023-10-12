@@ -61,8 +61,9 @@ class Statistics
             ];
         }
 
-        $fetched = $this->getTable()->where($where)->order('date DESC');
+        $fetched = $this->getTable()->where($where)->order('sum DESC');
         $fetched = $fetched->group("value");
+        $fetched->select("id, type, action, value, date, count(value) sum");
 
         return $fetched->fetchAll() ?? [];
     }

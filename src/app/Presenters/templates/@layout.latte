@@ -20,26 +20,18 @@
 
 {if $user->isLoggedIn()}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Jan Dolejš</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/me">Photo</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://ftp.jandolejs.cz">FTP</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://key.jandolejs.cz">Key</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://release.jandolejs.cz">Release</a></li>
-                <li class="nav-item"><a class="nav-link" n:href="Statistics:">Statistics</a></li>
-                <li class="nav-item"><a class="nav-link" href="/me">Photo</a></li>
                 <li class="nav-item"><a class="nav-link" href="http://traefik.jandolejs.cz">Traefik</a></li>
                 <li class="nav-item"><a class="nav-link" href="http://kimisek.cz">Kimisek</a></li>
-                <li class="nav-item"><a class="nav-link" href="http://shipgratis.jandolejs.cz">SG</a></li>
-                <li class="nav-item"><a class="nav-link" href="http://adminer.shipgratis.jandolejs.cz">SGA</a></li>
-                <li class="nav-item"><a class="nav-link" href="http://magento.jandolejs.cz">M2</a></li>
-                <li class="nav-item"><a class="nav-link" href="http://adminer.magento.jandolejs.cz">M2a</a></li>
-                <li class="nav-item"><a class="nav-link" href="http://lira.jandolejs.cz">LR</a></li>
-                <li class="nav-item"><a class="nav-link" href="http://adminer.lira.jandolejs.cz">LRa</a></li>
                 <li class="nav-item"><a class="nav-link" href="/tools">Tools</a></li>
             </ul>
             <a class="btn btn-outline-success my-2 my-sm-0" href="/logout">Log out</a>

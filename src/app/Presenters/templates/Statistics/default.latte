@@ -23,9 +23,11 @@
     {default $statistics = array()}
     {default $display = true}
     <table class="table" style="display: {$display ? '' : 'none'}">
-
-        {include table_head, head:['#', 'type', 'Action', 'value', 'date', ]}
-
+        <thead>
+        <tr>
+            <th n:foreach="['#', 'type', 'Action', 'Sum', 'value', 'date', ] as $item" scope="col">{$item|firstUpper}</th>
+        </tr>
+        </thead>
         <tbody id="tasks_all">
         {foreach $statistics as $_row}
             {var Nette\Database\Row $row = $_row}
@@ -33,6 +35,7 @@
                 <td>{$row->offsetGet('id')}</td>
                 <td>{$row->offsetGet('type')}</td>
                 <td>{$row->offsetGet('action')}</td>
+                <td>{$row->offsetGet('sum')}</td>
                 <td>{$row->offsetGet('value')}</td>
                 <td>{$row->offsetGet('date')}</td>
             </tr>
