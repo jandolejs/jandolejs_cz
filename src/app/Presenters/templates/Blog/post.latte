@@ -1,0 +1,10 @@
+
+{block content}
+    <p><a n:href="Blog:">← Zpátky</a></p>
+    <div class="center" style="padding: 25px 10%; text-align: justify">
+        <h2 n:block="title" style="color: #333">{$post->title}</h2>
+        <div class="date" style="color: #969696">{$post->created_at|date:'j. n. Y'}</div>
+        <br>
+        <div class="post">{$post->content|noescape}</div>
+    </div>
+{/block}
