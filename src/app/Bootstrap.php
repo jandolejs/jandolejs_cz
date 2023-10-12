@@ -14,7 +14,10 @@ class Bootstrap
 		$configurator = new Configurator;
 		$appDir = dirname(__DIR__);
 
-        $configurator->setDebugMode( str_ends_with($_SERVER['HTTP_HOST'] ?? '', ".localhost"));
+        $configurator->setDebugMode(
+            ($_COOKIE['tracy-secret'] ?? 0) == "me" ||
+            str_ends_with($_SERVER['HTTP_HOST'] ?? '', ".localhost")
+        );
 		$configurator->enableTracy($appDir . '/log');
 
 		$configurator->setTimeZone('Europe/Prague');
@@ -26,7 +29,6 @@ class Bootstrap
 
 		$configurator->addConfig($appDir . '/config/common.neon');
 		$configurator->addConfig($appDir . '/config/local.neon');
-
 
 		return $configurator;
 	}
