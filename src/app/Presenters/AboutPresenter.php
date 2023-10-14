@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 use App\Presenter;
-use Nette;
 
 
-final class IcoPresenter extends Presenter
+final class AboutPresenter extends Presenter
 {
 }
