@@ -1,20 +1,30 @@
 
+{block styles}
+    <style>
+        .almost {
+            width: 50%
+        }
+        @media (max-width: 900px) {
+            img {
+                display: none;
+            }
+            .almost {
+                width: 80%
+            }
+        }
+    </style>
+{/block}
+
 {block content}
-    <br>
-    <div style="display: flex; align-items: center; flex-direction: column;">
-        <div>
-            <div class="row">
-                <div class="col-sm-3" style="display: flex; flex-direction: column; align-items: center">
-                    <img src="/media/me.png" width="100px" style="border-radius: 3px; margin: 0 5px">
-                </div>
-                <div class="col-sm-8">
-                    <h2 style="color: black">O mně</h2>
-                    <h5>Ahoj, jsem Honza.</h5>
-                </div>
-            </div>
-            <br>
+    <div style="display: flex; align-items: center; justify-content: center">
+        <img src="/media/me.png" width="230px" style="border-radius: 5px; margin: 20px">
+        <div class="almost">
+            <h2>O mně</h2>
+            <h5>Ahoj, jsem Honza.</h5>
             <h5>Pracuji jako PHP programátor, starám se o servery, buduji chytrou domácnost a volný čas trávím spravováním internetu u nás v Plzni</h5>
-            <h5>Mohu Vám pomoci s návrhem, vývojem a údržbou webových aplikací, více se dozvíte v <a href="/cv">životopisu</a>.</h5>
+            <h5>Mohu Vám pomoci s návrhem, vývojem a údržbou webových aplikací</h5>
+            <h5>...více se dozvíte v <a href="/cv">životopisu</a>.</h5>
         </div>
+        <br>
     </div>
 {/block}
