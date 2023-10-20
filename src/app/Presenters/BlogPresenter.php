@@ -15,6 +15,7 @@ final class BlogPresenter extends Presenter
     {
         $this->template->posts = $this->database
             ->table('posts')
+            ->where(['public' => 1])
             ->order('created_at DESC')
             ->limit(10);
     }
@@ -30,6 +31,19 @@ final class BlogPresenter extends Presenter
         }
 
         $this->template->post = $post;
+    }
+
+    public function renderNew(): void
+    {
+        if (!$this->getUser()->isLoggedIn()) {
+            $this->error('Please login to edit this post');
+        }
+
+        $post = $this->database
+            ->table('posts')
+            ->insert([]);
+
+        $this->redirect('Blog:edit', $post->id);
     }
 
     public function renderEdit(int $id): void
@@ -60,6 +74,7 @@ final class BlogPresenter extends Presenter
             ->setRequired();
         $form->addTextArea('content', 'Content:')
             ->setRequired();
+        $form->addCheckbox('public', 'Public');
 
         $form->addSubmit('send', 'Save and publish');
         $form->onSuccess[] = $this->postFormSucceeded(...);
@@ -69,6 +84,10 @@ final class BlogPresenter extends Presenter
 
     #[NoReturn] private function postFormSucceeded(array $data): void
     {
+        if (!$this->getUser()->isLoggedIn()) {
+            $this->error('Please login to edit this post');
+        }
+
         $postId = $this->getParameter('id');
 
         if ($postId) {

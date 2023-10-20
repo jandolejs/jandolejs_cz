@@ -1,6 +1,7 @@
 
 {block content}
     <h1 style="padding-top: 50px;" class="center">Blog</h1>
+    <a n:if="$user->isLoggedIn()" n:href="Blog:new"><button>NEW</button></a>
     <br>
     <div n:foreach="$posts as $post" class="post center" style="max-width: 830px; text-align: justify; padding: 10px">
         <h2><a n:href="Blog:post $post->id">{$post->title}</a></h2>

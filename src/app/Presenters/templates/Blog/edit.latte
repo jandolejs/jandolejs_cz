@@ -12,6 +12,9 @@
         {dump $input}
         {if $input->getOptions()['type'] == 'text'}
             <input class="form-control" id="exampleInputEmail1" value="{$input->getValue()}" name="{$input->getName()}">
+        {elseif $input->getOptions()['type'] == 'checkbox'}
+            <input class="form-check-input" type="checkbox" {if $input->getValue()}checked{/if} name="{$input->getName()}">
+            <label class="form-check-label">{$input->getCaption()}</label>{dump $input}
         {elseif $input->getOptions()['type'] == 'textarea'}
             <textarea class="form-control" rows="20" name="{$input->getName()}">{$input->getValue()}</textarea>
         {/if}
