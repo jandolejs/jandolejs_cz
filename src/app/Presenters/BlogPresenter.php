@@ -88,10 +88,6 @@ final class BlogPresenter extends Presenter
             $this->error('Please login to edit this post');
         }
 
-        #if ($data['public']) {
-        #    $data['public'] = 1;
-        #}
-
         $postId = $this->getParameter('id');
 
         if ($postId) {
