@@ -1,4 +1,23 @@
 {block content}
 <h1>Edit post</h1>
 
-{control postForm}
+{var $form = $control->getComponent('postForm')}
+
+<form n:name="$form" style="margin: 10px">
+    <ul class="errors" n:ifcontent>
+        <li n:foreach="$form->getOwnErrors() as $error">{$error}</li>
+    </ul>
+    <div class="form-group" n:foreach="$form->getControls() as $input" n:if="$input->getOption(type) !== hidden">
+        {label $input /}
+        {dump $input}
+        {if $input->getOptions()['type'] == 'text'}
+            <input class="form-control" id="exampleInputEmail1" value="{$input->getValue()}" name="{$input->getName()}">
+        {elseif $input->getOptions()['type'] == 'checkbox'}
+            <input class="form-check-input" type="checkbox" {if $input->getValue()}checked{/if} name="{$input->getName()}">
+            <label class="form-check-label">{$input->getCaption()}</label>{dump $input}
+        {elseif $input->getOptions()['type'] == 'textarea'}
+            <textarea class="form-control" rows="20" name="{$input->getName()}">{$input->getValue()}</textarea>
+        {/if}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

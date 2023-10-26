@@ -1,5 +1,7 @@
 
 {block content}
+    <div n:if="!$post->public" class="alert alert-warning">This post is inactive, it is not listed!</div>
+
     <p style="padding: 8px"><a n:href="Blog:">← Zpátky</a>{if $user->isLoggedIn()} | <a n:href="Blog:edit $post->id">Edit this post</a>{/if}</p>
     <div class="center" style="padding: 25px 10%; text-align: justify">
         <h2 n:block="title" style="color: #333">{$post->title}</h2>
