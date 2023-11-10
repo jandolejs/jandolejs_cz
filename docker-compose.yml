@@ -19,18 +19,11 @@ services:
         networks:
             - web
         labels:
-            # Enable traefik
             - "traefik.enable=true"
-
-            # TLS Certificates
-            - "traefik.http.routers.${PROJECT_NAME}_http.tls=true"
-
-            # Route Web
-            - "traefik.http.routers.${PROJECT_NAME}_http.rule=Host(`www.${PROJECT_BASE_URL}`) || Host(`${PROJECT_BASE_URL}`)"
-            - "traefik.http.routers.${PROJECT_NAME}_http.entrypoints=web,websecure"
-
+            - "traefik.http.routers.${PROJECT_NAME}.rule=Host(`www.${PROJECT_BASE_URL}`) || Host(`${PROJECT_BASE_URL}`)"
+            - "traefik.http.routers.${PROJECT_NAME}.entrypoints=websecure"
             # Redirect normal web to www
-            - "traefik.http.routers.${PROJECT_NAME}_http.middlewares=${PROJECT_NAME}_www_redirect"
+            - "traefik.http.routers.${PROJECT_NAME}.middlewares=${PROJECT_NAME}_www_redirect"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.regex=^(https?)://${PROJECT_BASE_URL}/(.*)$$"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.replacement=https://www.${PROJECT_BASE_URL}/$${2}"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.permanent=true"

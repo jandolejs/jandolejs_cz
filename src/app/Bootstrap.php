@@ -15,7 +15,6 @@ class Bootstrap
 		$appDir = dirname(__DIR__);
 
         $configurator->setDebugMode(
-            ($_COOKIE['tracy-secret'] ?? 0) == "me" ||
             str_ends_with($_SERVER['HTTP_HOST'] ?? '', ".localhost")
         );
 		$configurator->enableTracy($appDir . '/log');
