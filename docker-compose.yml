@@ -52,5 +52,5 @@ services:
 
 networks:
     web:
-        name: www_jandolejs
+        name: www
         external: true
