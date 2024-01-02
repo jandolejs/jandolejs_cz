@@ -8,6 +8,10 @@ parameters:
         users:
             table: users
 
+database:
+    dsn: ::getenv('dsn')
+    user: ::getenv('user')
+    password: ::getenv('password')
 
 http:
     proxy: 0.0.0.0/0 # Because IP can change on different environments
