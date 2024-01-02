@@ -36,6 +36,9 @@ services:
             PHP_FPM_CLEAR_ENV: 'no'
             PHP_FPM_USER: wodby
             PHP_FPM_GROUP: wodby
+            dsn: $dsn
+            user: $user
+            password: $password
         volumes:
             - ./src:/var/www/html
         depends_on:
