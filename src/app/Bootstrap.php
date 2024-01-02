@@ -20,7 +20,7 @@ class Bootstrap
 		$configurator->enableTracy($appDir . '/log');
 
 		$configurator->setTimeZone('Europe/Prague');
-		$configurator->setTempDirectory($appDir . '/temp');
+		$configurator->setTempDirectory('/tmp/app');
 
 		$configurator->createRobotLoader()
 			->addDirectory(__DIR__)
