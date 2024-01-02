@@ -17,7 +17,7 @@ class Bootstrap
         $configurator->setDebugMode(
             str_ends_with($_SERVER['HTTP_HOST'] ?? '', ".localhost")
         );
-		$configurator->enableTracy($appDir . '/log');
+		$configurator->enableTracy('/tmp');
 
 		$configurator->setTimeZone('Europe/Prague');
 		$configurator->setTempDirectory('/tmp/app');
