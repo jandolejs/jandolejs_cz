@@ -1,7 +1,7 @@
 services:
 
     nginx:
-        image: wodby/nginx
+        image: wodby/nginx:latest
         container_name: "${PROJECT_NAME}_nginx"
         restart: always
         depends_on:
@@ -27,7 +27,7 @@ services:
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.permanent=true"
 
     php:
-        image: wodby/php:8-4.45.2
+        image: wodby/php:8.3
         container_name: "${PROJECT_NAME}_php"
         restart: always
         environment:
