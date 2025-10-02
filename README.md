@@ -2,7 +2,11 @@
 
 My personal website
 
-## Init
+## Init - Portainer
+- copy and modify content of .env
+- use that with repo url to start service
+
+## Init - local
 - copy template.env to .env
 - modify .env as you want
 - copy src/config/local.plain.neon to src/config/local.neon

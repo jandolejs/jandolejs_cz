@@ -1,55 +1,31 @@
 services:
 
-    nginx:
-        image: wodby/nginx:latest
-        container_name: "${PROJECT_NAME}_nginx"
-        restart: always
-        depends_on:
-            - php
+    frontend:
+        ports:
+            - 80:80
+        container_name: ${PROJECT_NAME}
+        build:
+            context: .
+            platforms:
+                - linux/amd64
+        image: ghcr.io/jandolejs/jandolejs_cz:latest
         environment:
-            NGINX_STATIC_OPEN_FILE_CACHE: "off"
-            NGINX_ERROR_LOG_LEVEL: debug
-            NGINX_BACKEND_HOST: ${PROJECT_NAME}_php
-            NGINX_VHOST_PRESET: php
-            NGINX_SERVER_ROOT: /var/www/html/www
-        volumes:
-            - ./src/:/var/www/html
+            BASE_URL: $PROJECT_BASE_URL
+            dsn: $dsn
+            user: $user
+            password: $password
         networks:
             - web
+        restart: unless-stopped
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.${PROJECT_NAME}.rule=Host(`www.${PROJECT_BASE_URL}`) || Host(`${PROJECT_BASE_URL}`)"
+            - "traefik.http.routers.${PROJECT_NAME}.rule=Host(`${PROJECT_BASE_URL}`) || Host(`www.${PROJECT_BASE_URL}`)"
             - "traefik.http.routers.${PROJECT_NAME}.entrypoints=websecure"
             # Redirect normal web to www
             - "traefik.http.routers.${PROJECT_NAME}.middlewares=${PROJECT_NAME}_www_redirect"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.regex=^(https?)://${PROJECT_BASE_URL}/(.*)$$"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.replacement=https://www.${PROJECT_BASE_URL}/$${2}"
             - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.permanent=true"
-
-    php:
-        image: wodby/php:8.3
-        container_name: "${PROJECT_NAME}_php"
-        restart: always
-        environment:
-            PHP_FPM_CLEAR_ENV: 'no'
-            PHP_FPM_USER: wodby
-            PHP_FPM_GROUP: wodby
-            dsn: $dsn
-            user: $user
-            password: $password
-        volumes:
-            - ./src:/var/www/html
-        depends_on:
-            - composer
-        networks:
-            - web
-
-    composer:
-        container_name: "${PROJECT_NAME}_composer"
-        image: composer:latest
-        command: install
-        volumes:
-            - ./src:/app
 
 networks:
     web:
