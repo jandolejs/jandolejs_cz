@@ -1,31 +1,17 @@
 services:
 
     frontend:
-        container_name: ${PROJECT_NAME}
+        container_name: jandolejs_cz_frontend
         build:
             context: .
             platforms:
                 - linux/amd64
         image: ghcr.io/jandolejs/jandolejs_cz:latest
+        ports:
+            - 8076:80
         environment:
-            BASE_URL: $PROJECT_BASE_URL
+            BASE_URL: jandolejs.cz
             dsn: $dsn
             user: $user
             password: $password
-        networks:
-            - web
         restart: unless-stopped
-        labels:
-            - "traefik.enable=true"
-            - "traefik.http.routers.${PROJECT_NAME}.rule=Host(`${PROJECT_BASE_URL}`) || Host(`www.${PROJECT_BASE_URL}`)"
-            - "traefik.http.routers.${PROJECT_NAME}.entrypoints=web,websecure"
-            # Redirect normal web to www
-            - "traefik.http.routers.${PROJECT_NAME}.middlewares=${PROJECT_NAME}_www_redirect"
-            - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.regex=^(https?)://${PROJECT_BASE_URL}/(.*)$$"
-            - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.replacement=https://www.${PROJECT_BASE_URL}/$${2}"
-            - "traefik.http.middlewares.${PROJECT_NAME}_www_redirect.redirectregex.permanent=true"
-
-networks:
-    web:
-        name: www
-        external: true
