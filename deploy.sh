@@ -3,7 +3,6 @@
 # (git pull goes over the forwarded SSH agent – the server has no own GitHub key)
 set -euo pipefail
 cd "$(dirname "$0")"
-[ -f .env ] || { echo "Chybí .env (viz .env.template)"; exit 1; }
 
 before=$(git rev-parse --short HEAD)
 git pull --ff-only -q

@@ -1,4 +1,4 @@
-# Server: /var/www/jandolejs_cz (git checkout) + .env vedle (chmod 600, viz .env.template).
+# Server: /var/www/jandolejs_cz (git checkout).
 # Deploy: ssh -A root@157.90.172.155 /var/www/jandolejs_cz/deploy.sh
 # Žádný Portainer ani GHCR – image se staví přímo na serveru z checkoutu.
 name: jandolejs
@@ -11,9 +11,4 @@ services:
         image: jandolejs_cz:server
         ports:
             - 8076:80   # Cloudflare tunel (jandolejs.cz) míří na tenhle port
-        environment:
-            BASE_URL: jandolejs.cz
-            dsn: $dsn
-            user: $user
-            password: $password
         restart: unless-stopped

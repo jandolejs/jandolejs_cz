@@ -1,17 +1,16 @@
 # jandolejs.cz
 
-My personal website
+My personal website – plain static HTML served by nginx (no PHP, no database).
+
+- `site/` – the pages: `/`, `/about/`, `/kontakt/`, `/bank/`, `/cv/`, `/me/`, `404.html`
+- `site/media/` – images; `plan.png` is the flat floor plan used by Home Assistant
+- `nginx.conf` – server config (directory URLs, 404 page, caching of `/media`)
 
 ## Production
 Runs on root@157.90.172.155 from a git checkout in `/var/www/jandolejs_cz`
-(no Portainer, no GHCR – the image is built on the server).
+(the image is built on the server).
 
-- `.env` next to the checkout (chmod 600) holds `dsn`, `user`, `password` – see `.env.template`
-- deploy after pushing to main: `ssh -A root@157.90.172.155 /var/www/jandolejs_cz/deploy.sh`
+Deploy after pushing to master: `ssh -A root@157.90.172.155 /var/www/jandolejs_cz/deploy.sh`
 
-## Init - local
-- copy .env.template to .env
-- modify .env as you want
-- copy src/config/local.plain.neon to src/config/local.neon
-- modify src/config/local.neon as you want
-- docker compose up -d --build
+## Local
+`docker compose up -d --build` → http://localhost:8076

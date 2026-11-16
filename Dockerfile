@@ -1,7 +1,3 @@
-FROM composer:latest AS composer
-COPY ./src /app
-RUN composer install
-
-FROM jakubboucek/lamp-devstack-php:latest
-COPY --from=composer /app /var/www/html
-RUN chown -R www-data:www-data /var/www/html
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY site /usr/share/nginx/html
