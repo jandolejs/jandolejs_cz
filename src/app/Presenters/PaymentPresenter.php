@@ -11,7 +11,7 @@ use JetBrains\PhpStorm\NoReturn;
 use Nette\Application\AbortException;
 
 /**
- * Class StatisticsPresenter
+ * Class PaymentPresenter
  * @package App\Presenters
  * @noinspection PhpUnused
  */

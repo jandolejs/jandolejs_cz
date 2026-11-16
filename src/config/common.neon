@@ -2,9 +2,6 @@
 parameters:
     configuration:
 
-        statistics:
-            table: statistics
-
         users:
             table: users
 
@@ -46,4 +43,3 @@ services:
     NotesFactory:
         factory: App\Model\Notes\Factory(@Nette\Database\Explorer)
 
-    Statistics: App\Model\Statistics(@Nette\Database\Explorer, @Nette\Security\User)

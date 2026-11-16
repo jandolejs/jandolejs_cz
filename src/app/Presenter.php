@@ -3,7 +3,6 @@
 
 namespace App;
 
-use App\Model\Statistics;
 use Nette\Database\Explorer;
 use Nette;
 use Nette\DI\Attributes\Inject;
@@ -15,7 +14,6 @@ use Nette\DI\Attributes\Inject;
 class Presenter extends Nette\Application\UI\Presenter
 {
 
-    #[inject] public Statistics $statistics;
     #[Inject] public Explorer $database;
     #[Inject] public Configuration $config;
 
@@ -32,8 +30,6 @@ class Presenter extends Nette\Application\UI\Presenter
         #$connected = @fsockopen("google.com", 80);
         #if (!$connected) $this->flashMessage("Internet connection is missing!", "danger");
         #else fclose($connected);
-
-        $this->statistics->visit($this->getHttpRequest()->getUrl()->getPath(), 'visit');
     }
 
     /**
@@ -66,7 +62,6 @@ class Presenter extends Nette\Application\UI\Presenter
     public function beforeRender()
     {
         parent::beforeRender();
-        $this->statistics->visit($this->getHttpRequest()->getUrl()->getPath(), 'render');
 
         // Change markdown link to html link
         $this->template->addFilter('mdLink', function($original) {

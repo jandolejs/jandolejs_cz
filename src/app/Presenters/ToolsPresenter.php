@@ -10,7 +10,7 @@ use JetBrains\PhpStorm\NoReturn;
 use Nette\Application\AbortException;
 
 /**
- * Class StatisticsPresenter
+ * Class ToolsPresenter
  * @package App\Presenters
  * @noinspection PhpUnused
  */

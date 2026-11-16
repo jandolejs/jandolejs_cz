@@ -23,18 +23,6 @@ CREATE TABLE `settings` (
 INSERT INTO `settings` (`key`, `value`, `comment`, `created_at`, `updated_at`) VALUES
 ('name',	'JanDolejs',	'Name of application',	'2021-10-06 13:14:58',	'0000-00-00 00:00:00');
 
-CREATE TABLE `statistics` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `type` varchar(25) NOT NULL,
-    `action` varchar(25) DEFAULT NULL,
-    `date` datetime NOT NULL DEFAULT current_timestamp(),
-    `value` text NOT NULL,
-    `user_id` int(11) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `user_id` (`user_id`),
-    CONSTRAINT `statistics_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE `users` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `username` varchar(50) NOT NULL,
